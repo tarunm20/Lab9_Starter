@@ -210,7 +210,7 @@
     // Trigger a Global Error Demo
     errorBtns[14].addEventListener('click', () => {
       try {
-        let fakeTag = document.getElementsByTagName("idk");
+        let fakeTag = document.getElementById("idk");
         if(!fakeTag) {
           TrackJS.track('Testing TrackJS!');
 					throw new newError("'idk' element not found.");
