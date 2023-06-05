@@ -47,6 +47,13 @@
       width: 122px;
     }
   </style>
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "d177fed946cf4baa8ffcd647c30785d5"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+  </script>  
 </head>
 
 <body>
@@ -100,8 +107,127 @@
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
 
-    // Start your code here
-    // You may move this JS to another file if you wish
+    // Console Log Demo
+    errorBtns[0].addEventListener('click', () => {
+      console.log('This is a console.log demo');
+    });
+
+    // Console Error Demo
+    errorBtns[1].addEventListener('click', () => {
+      console.error('This is a console.error demo');
+    });
+
+    // Console Count Demo
+    errorBtns[2].addEventListener('click', () => {
+      let count = 0;
+      console.count('Count');
+      count++;
+      console.count('Count');
+    });
+
+    // Console Warn Demo
+    errorBtns[3].addEventListener('click', () => {
+      console.warn('This is a console.warn demo');
+    });
+
+    // Console Assert Demo
+    errorBtns[4].addEventListener('click', () => {
+      a = 1;
+      b = 2;
+      const message = "expected b > a"
+      console.assert(b < a, {a, b, message});
+    });
+
+    // Console Clear Demo
+    errorBtns[5].addEventListener('click', () => {
+      console.clear();
+    });
+
+    // Console Dir Demo
+    errorBtns[6].addEventListener('click', () => {
+      console.dir(errorBtns[6]);
+    });
+
+    // Console Dirxml Demo
+    errorBtns[7].addEventListener('click', () => {
+      console.dirxml(errorBtns[7]);
+    });
+
+    // Console Group Start Demo
+    errorBtns[8].addEventListener('click', () => {
+      console.group('Group');
+      console.log('Inside the group');
+    });
+
+    // Console Group End Demo
+    errorBtns[9].addEventListener('click', () => {
+      console.log('Outside the group');
+      console.groupEnd();
+    });
+
+    // Console Table Demo
+    errorBtns[10].addEventListener('click', () => {
+      const data = [
+        { name: 'Tarun', age: 21 },
+        { name: 'Ralph', age: 20 },
+        { name: 'Luis', age: 20 }
+      ];
+      console.table(data);
+    });
+
+    // Start Timer Demo
+    errorBtns[11].addEventListener('click', () => {
+      console.time('Timer');
+    });
+
+    // End Timer Demo
+    errorBtns[12].addEventListener('click', () => {
+      console.timeEnd('Timer');
+    });
+
+    // Console Trace Demo
+    errorBtns[13].addEventListener('click', () => {
+      function first() {
+        function second() {
+          function third() {
+            console.trace('Trace');
+          }
+          third();
+        }
+        second();
+      }
+      first();
+    });
+
+    //Error class
+    class newError extends Error {
+      constructor(msg) {
+        super(msg);
+        this.type = "newError";
+      }
+    }
+
+    // Trigger a Global Error Demo
+    errorBtns[14].addEventListener('click', () => {
+      try {
+        let fakeTag = document.getElementsByTagName("idk");
+        if(!fakeTag) {
+          TrackJS.track("Trying TrackJS");
+					throw new newError("'idk' element not found.");
+        }
+        fakeTag.innerHTML = "more data";
+      } catch (err) {
+        console.log("error was caught");
+        if (err instanceof newError) {
+          console.error(`newError: ${err.message}`);
+        }
+        else {
+          console.error(`Normal Error: ${err.message}`);
+        }
+      } finally {
+        console.log("An error was thrown, please check the error message for more information");
+      }
+    });
   </script>
 </body>
 
